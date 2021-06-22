@@ -24,17 +24,21 @@ Part 1: Write queries to answer the following questions.
 					  actress(M2,X,_).
     
     f. Find a director of a movie in which Scarlett Johansson appeared.
-    direcActress(X,Y,Z) :- director(X,Y),
-    				 actress(X,Z,_).
+    direcAct(Movie,Director,Act) :- director(Movie,Director),
+    					  			(actress(Movie,Act,_);actor(Movie,Act,_)).
     
     g. Find an actor who has also directed a movie.
+    actDirec(Act, DirMovie, ActMovie) :- director(DirMovie,Act),
+    		  	 				     actor(ActMovie,Act,_).
     
     
     h. Find an actor or actress who has also directed a movie.
+    actDirec(Act, DirMovie, ActMovie) :- director(DirMovie,Act),
+    		  	 				     (actress(ActMovie,Act,_),actor(ActMovie,Act,_)).
     
     
     i. Find the movie in which John Goodman and Jeff Bridges were co-stars.
-    
+    actor(M,john_goodman,_), actor(M,jeff_bridges,_).
     
 Part 2: Add rules to the database to do the following,
     a. released_after(M, Y) <- the movie was released after the given year.
@@ -59,12 +63,17 @@ Part 2: Add rules to the database to do the following,
         actress/3.
 
 acmovie(M1,M2,X) :- actor(M1,X,_),
-					  actor(M2,X,_);
-					  actress(M1,X,_),
-					  actress(M2,X,_).
+					actor(M2,X,_);
+					actress(M1,X,_),
+				    actress(M2,X,_).
 
-direcActress(X,Y,Z) :- director(X,Y),
-    				 actress(X,Z,_).
+direcAct(Movie,Director,Act) :- director(Movie,Director),
+    					  		(actress(Movie,Act,_);actor(Movie,Act,_)).
+
+actDirec(Act, DirMovie, ActMovie) :- director(DirMovie,Act),
+    		  	 				     actor(ActMovie,Act,_).
+
+released_after(Movie,Ano) :- movie(Movie,Ano), 
 
 movie(american_beauty, 1999).
 director(american_beauty, sam_mendes).
