@@ -19,22 +19,22 @@ Part 1: Write queries to answer the following questions.
     
     e. Find an actor who has appeared in more than one movie.
     acmovie(M1, M2, X) :- actor(M1,X,_),
-					  actor(M2,X,_);
-					  actress(M1,X,_),
-					  actress(M2,X,_).
+			  actor(M2,X,_);
+			  actress(M1,X,_),
+			  actress(M2,X,_).
     
     f. Find a director of a movie in which Scarlett Johansson appeared.
     direcAct(Movie,Director,Act) :- director(Movie,Director),
-    					  			(actress(Movie,Act,_);actor(Movie,Act,_)).
+    				    (actress(Movie,Act,_);actor(Movie,Act,_)).
     
     g. Find an actor who has also directed a movie.
     actDirec(Act, DirMovie, ActMovie) :- director(DirMovie,Act),
-    		  	 				     actor(ActMovie,Act,_).
+    		  	 		 actor(ActMovie,Act,_).
     
     
     h. Find an actor or actress who has also directed a movie.
     actDirec(Act, DirMovie, ActMovie) :- director(DirMovie,Act),
-    		  	 				     (actress(ActMovie,Act,_),actor(ActMovie,Act,_)).
+    		  	 		 (actress(ActMovie,Act,_),actor(ActMovie,Act,_)).
     
     
     i. Find the movie in which John Goodman and Jeff Bridges were co-stars.
