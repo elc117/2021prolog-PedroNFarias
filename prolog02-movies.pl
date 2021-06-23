@@ -18,27 +18,19 @@ Part 1: Write queries to answer the following questions.
     movie(I, X), X>1990.
     
     e. Find an actor who has appeared in more than one movie.
-    acmovie(M1, M2, X) :- actor(M1,X,_),
-			  actor(M2,X,_);
-			  actress(M1,X,_),
-			  actress(M2,X,_).
+    actor(M1, A, R1), actor(M2, A, R2), M1\=M2.
     
     f. Find a director of a movie in which Scarlett Johansson appeared.
-    direcAct(Movie,Director,Act) :- director(Movie,Director),
-    				    (actress(Movie,Act,_);actor(Movie,Act,_)).
+    director(M1, D), actress(M1, scarlett_johansson, R).
     
     g. Find an actor who has also directed a movie.
-    actDirec(Act, DirMovie, ActMovie) :- director(DirMovie,Act),
-    		  	 		 actor(ActMovie,Act,_).
-    
+    director(_, Act), actor(_, Act, _).
     
     h. Find an actor or actress who has also directed a movie.
-    actDirec(Act, DirMovie, ActMovie) :- director(DirMovie,Act),
-    		  	 		 (actress(ActMovie,Act,_),actor(ActMovie,Act,_)).
-    
+    director(_, Act), actor(_, Act, _) ; actress(_, Act, _).
     
     i. Find the movie in which John Goodman and Jeff Bridges were co-stars.
-    actor(M,john_goodman,_), actor(M,jeff_bridges,_).
+    movie(M,Y), actor(M, john_goodman, _), actor(M, jeff_bridges, _).
     
 Part 2: Add rules to the database to do the following,
     a. released_after(M, Y) <- the movie was released after the given year.
@@ -62,18 +54,14 @@ Part 2: Add rules to the database to do the following,
         actor/3,
         actress/3.
 
-acmovie(M1,M2,X) :- actor(M1,X,_),
-					actor(M2,X,_);
-					actress(M1,X,_),
-				    actress(M2,X,_).
 
-direcAct(Movie,Director,Act) :- director(Movie,Director),
-    					  		(actress(Movie,Act,_);actor(Movie,Act,_)).
+released_after(Movie, Year) :- movie(Movie, N), N > Year.
 
-actDirec(Act, DirMovie, ActMovie) :- director(DirMovie,Act),
-    		  	 				     actor(ActMovie,Act,_).
+released_before(Movie, Year) :- movie(Movie, N), N < Year.
 
-released_after(Movie,Ano) :- movie(Movie,Ano), 
+same_year(M1, M2) :- movie(M1, Year), movie(M2, Year), M1\=M2. 
+
+co_star(Act1, Act2) :- (actor(Movie, Act1,_) ; actress(Movie, Act1,_)), (actor(Movie, Act2,_) ; actress(Movie, Act2,_)), Act1\=Act2.
 
 movie(american_beauty, 1999).
 director(american_beauty, sam_mendes).
