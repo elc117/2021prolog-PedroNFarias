@@ -33,8 +33,3 @@ nRandoms(N,[H|T]) :-
     random(1,100000,H),
     N1 is N - 1,
     nRandoms(N1,T),!.
-
-    
-    
-
-    
